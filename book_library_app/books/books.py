@@ -41,7 +41,8 @@ def get_book(book_id: int):
 @use_args(book_schema, error_status_code=400)
 def update_book(user_id: int, args: dict, book_id: int):
     book = Book.query.get_or_404(book_id, description=f'Book with id {book_id} not found')
-    if Book.query.filter(Book.isbn == args['isbn']).first():
+    book_with_existing_isbn = Book.query.filter(Book.isbn == args['isbn']).first()
+    if book_with_existing_isbn.id != book_id:
         abort(409, description=f'Book with ISBN {args["isbn"]} already exists')
 
     book.title = args['title']
