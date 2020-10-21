@@ -86,11 +86,9 @@ def apply_filter(model: DefaultMeta, query: BaseQuery) -> BaseQuery:
             column_attr = getattr(model, param, None)
             if column_attr is not None:
                 value = model.additional_validation(param, value)
-                print(value)
                 if value is None:
                     continue
                 filter_argument = _get_filter_argument(column_attr, value, operator)
-                print(filter_argument)
                 query = query.filter(filter_argument)
     return query
 

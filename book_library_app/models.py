@@ -94,7 +94,6 @@ class BookSchema(Schema):
 
     @validates('isbn')
     def validate_isbn(self, value):
-        print(value)
         if len(str(value)) != 13:
             raise ValidationError('ISBN must contains 13 digits')
 
